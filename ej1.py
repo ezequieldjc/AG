@@ -1,6 +1,8 @@
 import math
 import random
 
+//Lautaro Gato
+
 #funcion objetivo
 def f_obj(num):
 	return num/(math.pow(2,30) - 1)
