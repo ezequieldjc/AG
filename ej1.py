@@ -20,6 +20,7 @@ for i in range(10):
 	cromosomas.append(cromosoma)
 #print cromosomas
 
+#inicio de iteraciones de prueba
 cont1 = 0
 cont2 = 0
 maximo1 = 0
@@ -168,6 +169,8 @@ for r in range(numero_de_pruebas):
 	cromosomas = []
 	for i in range(10):
 		cromosomas.append(poblacionNueva[i])
+	print "----------------------"
+#fin de iteraciones de prueba
 
 #DESPUES BORRAR ESTO
 # print
