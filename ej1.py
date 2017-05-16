@@ -44,14 +44,14 @@ for r in range(numero_de_pruebas):
 	print promedioEvaluaciones
 
 	#cuenta la cantidad de veces que el numero maximo disminuyo de una poblacion a otra (DESPUES BORRAR)
-	if (max(cromosomas) < maximo1):
-		cont1 = cont1 + 1
-	maximo1 = max(cromosomas)
+	# if (max(cromosomas) < maximo1):
+	# 	cont1 = cont1 + 1
+	# maximo1 = max(cromosomas)
 
 	#cuenta la cantidad de veces que el promedio disminuyo de una poblacion a otra (DESPUES BORRAR)
-	if (promedioEvaluaciones < maximoprom1):
-		cont2 = cont2 + 1
-	maximoprom1 = promedioEvaluaciones
+	# if (promedioEvaluaciones < maximoprom1):
+	# 	cont2 = cont2 + 1
+	# maximoprom1 = promedioEvaluaciones
 
 	#obtener los fitness de cada cromosoma
 	losFitness = []
@@ -170,8 +170,8 @@ for r in range(numero_de_pruebas):
 		cromosomas.append(poblacionNueva[i])
 
 #DESPUES BORRAR ESTO
-print
-print "cantidad de cagadas con maximo:"
-print cont1
-print "cantidad de cagadas con el promedio:"
-print cont2
+# print
+# print "cantidad de cagadas con maximo:"
+# print cont1
+# print "cantidad de cagadas con el promedio:"
+# print cont2
