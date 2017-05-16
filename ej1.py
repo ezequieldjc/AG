@@ -1,7 +1,7 @@
 import math
 import random
 
-#prueba
+#prueba2
 #constantes
 numero_de_pruebas = 19;
 
