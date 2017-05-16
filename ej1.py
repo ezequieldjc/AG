@@ -1,6 +1,9 @@
 import math
 import random
 
+#constantes
+numero_de_pruebas = 19;
+
 #funcion objetivo
 def f_obj(num):
 	return num/(math.pow(2,30) - 1)
@@ -21,7 +24,7 @@ cont1 = 0
 cont2 = 0
 maximo1 = 0
 maximoprom1 = 0
-for r in range(100):
+for r in range(numero_de_pruebas):
 	print
 	print r + 1
 	print
