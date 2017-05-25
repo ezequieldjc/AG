@@ -1,110 +1,91 @@
 import math
 import random
 
-#prueba2
+
 #constantes
-numero_de_pruebas = 19;
+numero_de_pruebas = 20
+poblaciones_evaluaciones = []
+con_elitismo = True
+
 
 #funcion objetivo
 def f_obj(num):
 	return num/(math.pow(2,30) - 1)
 
-#generar cromosomas aleatoriamente
+def mostrar_evaluaciones(evaluaciones):
+	print str(max(evaluaciones)) + "  " + str(min(evaluaciones)) + "  " + str(sum(evaluaciones) / 10) + "  " + str(sum(evaluaciones))
+
+
+#Primera poblacion
 cromosomas = []
 for i in range(10):
 	cromosoma = ""
 	for j in range(30):
-		if(random.random() > 0.5):
-			cromosoma = cromosoma + '1'
-		else:
-			cromosoma = cromosoma + '0'
+		cromosoma = cromosoma + str(random.randint(0,1))
 	cromosomas.append(cromosoma)
-#print cromosomas
+
+print "n mayor eval    menor eval      promedio        suma"
 
 #inicio de iteraciones de prueba
-cont1 = 0
-cont2 = 0
-maximo1 = 0
-maximoprom1 = 0
 for r in range(numero_de_pruebas):
-	print
-	print r + 1
-	print
+
+	cromosomas.sort()
+
+
+
 	#obtener las evaluaciones de la funcion objetivo con cada cromosoma y la sumatoria
 	evaluaciones = []
-	cromosomasBaseDiez = []
 	for i in range(10):
-		cromosomasBaseDiez.append(int( cromosomas[i], 2) )
-		evaluaciones.append( f_obj( int( cromosomas[i], 2 ) ) )
+		evaluacion = f_obj( int( cromosomas[i], 2) )
+		evaluaciones.append( evaluacion )
+
 	totalEvaluaciones = sum(evaluaciones)
-	promedioEvaluaciones = sum(evaluaciones) / 10
-	print "Mayor evaluacion: "
-	print max(evaluaciones)
-	print "Menor evaluacion: "
-	print min(evaluaciones)
-	print "Promedio: "
-	print promedioEvaluaciones
+	print str(r + 1) + " " + str(max(evaluaciones)) + "  " + str(min(evaluaciones)) + "  " + str(sum(evaluaciones) / 10) + "  " + str(sum(evaluaciones))
 
-	#cuenta la cantidad de veces que el numero maximo disminuyo de una poblacion a otra (DESPUES BORRAR)
-	# if (max(cromosomas) < maximo1):
-	# 	cont1 = cont1 + 1
-	# maximo1 = max(cromosomas)
 
-	#cuenta la cantidad de veces que el promedio disminuyo de una poblacion a otra (DESPUES BORRAR)
-	# if (promedioEvaluaciones < maximoprom1):
-	# 	cont2 = cont2 + 1
-	# maximoprom1 = promedioEvaluaciones
+	#se guarda en el arreglo de poblaciones los valores de las evaluaciones
+	# poblaciones_evaluaciones.append({'maximo': max(evaluaciones), 'minimo': min(evaluaciones), 'promedio': sum(evaluaciones)/10 })
+
+	poblacionNueva = []
+
 
 	#obtener los fitness de cada cromosoma
 	losFitness = []
-	for i in range(10):
-		losFitness.append((evaluaciones[i]) / totalEvaluaciones )
+	for i in range(len(cromosomas)):
+		losFitness.append( (evaluaciones[i]) / totalEvaluaciones )
 	#print losFitness
-	print "maximo fitness"
-	print max(losFitness)
+
+	#---Elitismo---#
+	if(con_elitismo):
+		poblacionNueva[:] = cromosomas[8:]
+		del cromosomas[8:]
+	#se borran los elegidos de la poblacion inicial
 
 
-	#metodo de ruleta
+
+	#--metodo de ruleta--#
 
 	#asignamos arcos de la ruleta a los cromosomas en base a los pesos de cada uno
 	arcosRuleta = []
-	for i in range(10):
+	for i in range(len(cromosomas)):
 		arcosRuleta.append(int(round(losFitness[i] * 100)))
-	#hay veces que la suma de los arcos da diferente a 100, con esto se arregla
-	m1 = 0
-	m2 = 0
-	if (sum(arcosRuleta) < 100):
-		for ma in range(0,len(arcosRuleta)-1):
-			if(arcosRuleta[ma] == max(arcosRuleta)):
-				m1 = ma
-				break
-		resto = 100 - sum(arcosRuleta)
- 		arcosRuleta[m1] = arcosRuleta[m1] + resto
-	else:
-		if (sum(arcosRuleta) > 100):
-			for mi in range(0,len(arcosRuleta)-1):
-				if(arcosRuleta[mi] == min(arcosRuleta)):
-					m2 = mi
-					break
-			resto = (sum(arcosRuleta) - 100)
-			arcosRuleta[m2] = arcosRuleta[m2] - resto
 
 	ruleta = []
-	for i in range(10):
+	for i in range(len(arcosRuleta)):
 		for j in range(arcosRuleta[i]):
 			ruleta.append(i)
-	#print arcosRuleta
-	#print ruleta
+	#print len(arcosRuleta)
+	#print len(ruleta)
 
 	#giramos la ruleta y obtenemos los pares de cromosomas
 	pares = []
-	for i in range(10):
-		pares.append(ruleta[int(random.randint(0,99))])
+	for i in range(len(cromosomas)):
+		pares.append(ruleta[int(random.randint(0,len(ruleta) - 1))])
 	#print pares
 
+	#--crossover--#
 	j = 0
-	poblacionNueva = []
-	for i in range(5):
+	for i in range(len(cromosomas) / 2):
 		#se calcula la probabilidad de crossover
 		if(random.random() <= 0.75):
 			lugarDeCorte = random.randint(0,28)
@@ -112,6 +93,7 @@ for r in range(numero_de_pruebas):
 			hijo2 = ""
 			padre1 = cromosomas[pares[j]]
 			padre2 = cromosomas[pares[j+1]]
+
 			for k in range(lugarDeCorte):
 				hijo1 = hijo1 + padre1[k]
 				hijo2 = hijo2 + padre2[k]
@@ -129,8 +111,11 @@ for r in range(numero_de_pruebas):
 			j = j + 2
 	#print poblacionNueva
 
+
+	#--mutacion--#
+
 	#se calcula la probabilidad de mutacion
-	for i in range(10):
+	for i in range(len(poblacionNueva)):
 		if(random.random() <= 0.05):
 			genAleatorio = random.randint(0,29)
 			s = list(poblacionNueva[i])
@@ -139,43 +124,12 @@ for r in range(numero_de_pruebas):
 			else:
 				s[genAleatorio] = '1'
 			poblacionNueva[i] = "".join(s)
-	#print poblacionNueva
 
-	#obtener el segundo mayor de la "vieja" poblacion (para usar despues)
-	resto = 9999999999999
-	m3 = 11
-	for ma in range(0,len(cromosomas)-1):
-		if(cromosomas[ma] == max(cromosomas)):
-			for arr in range(0,len(cromosomas)-1):
-				rest = (int( cromosomas[ma], 2) ) - (int( cromosomas[arr], 2) )
-				if (rest > 0):
-					if(rest < resto):
-						resto = rest
-						m3 = arr
-			break
-	#a los dos menores cromosomas de la nueva poblacion los reemplazamos por los dos mayores de la "vieja" poblacion
-	for mi in range(0,len(poblacionNueva)-1):
-		if(poblacionNueva[mi] == min(poblacionNueva)):
-			if (poblacionNueva[mi] < max(cromosomas)):
-				poblacionNueva[mi] = max(cromosomas)
-				for mi2 in range(0,len(poblacionNueva)-1):
-					if (m3 < 11):
-						if(poblacionNueva[mi2] == min(poblacionNueva)):
-							if (poblacionNueva[mi2] < cromosomas[m3]):
-								poblacionNueva[mi2] = cromosomas[m3]
-								break
-				break
 
-	#guardamos la poblacion nueva sobre la "vieja" en el arreglo cromosomas (para el bucle)
 	cromosomas = []
 	for i in range(10):
 		cromosomas.append(poblacionNueva[i])
-	print "----------------------"
+	# print "----------------------"
 #fin de iteraciones de prueba
-
-#DESPUES BORRAR ESTO
-# print
-# print "cantidad de cagadas con maximo:"
-# print cont1
-# print "cantidad de cagadas con el promedio:"
-# print cont2
+# print poblaciones_evaluaciones
+print "mayor cromosoma " + max(cromosomas)
