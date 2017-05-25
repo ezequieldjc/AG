@@ -4,17 +4,12 @@ import random
 
 #constantes
 numero_de_pruebas = 20
-poblaciones_evaluaciones = []
-con_elitismo = True
-
+con_elitismo = False
+con_reemplazo = not con_elitismo and True
 
 #funcion objetivo
 def f_obj(num):
 	return num/(math.pow(2,30) - 1)
-
-def mostrar_evaluaciones(evaluaciones):
-	print str(max(evaluaciones)) + "  " + str(min(evaluaciones)) + "  " + str(sum(evaluaciones) / 10) + "  " + str(sum(evaluaciones))
-
 
 #Primera poblacion
 cromosomas = []
@@ -42,12 +37,7 @@ for r in range(numero_de_pruebas):
 	totalEvaluaciones = sum(evaluaciones)
 	print str(r + 1) + " " + str(max(evaluaciones)) + "  " + str(min(evaluaciones)) + "  " + str(sum(evaluaciones) / 10) + "  " + str(sum(evaluaciones))
 
-
-	#se guarda en el arreglo de poblaciones los valores de las evaluaciones
-	# poblaciones_evaluaciones.append({'maximo': max(evaluaciones), 'minimo': min(evaluaciones), 'promedio': sum(evaluaciones)/10 })
-
 	poblacionNueva = []
-
 
 	#obtener los fitness de cada cromosoma
 	losFitness = []
@@ -125,6 +115,10 @@ for r in range(numero_de_pruebas):
 				s[genAleatorio] = '1'
 			poblacionNueva[i] = "".join(s)
 
+	if(con_reemplazo):
+		poblacionNueva.sort()
+		poblacionNueva[0] = cromosomas[9]
+		poblacionNueva[1] = cromosomas[8]
 
 	cromosomas = []
 	for i in range(10):
