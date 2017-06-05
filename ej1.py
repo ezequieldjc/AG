@@ -4,7 +4,7 @@ import random
 
 #constantes
 numero_de_pruebas = 20
-con_elitismo = False
+con_elitismo = True
 con_reemplazo = not con_elitismo and False
 
 #funcion objetivo
@@ -31,7 +31,7 @@ for r in range(numero_de_pruebas):
 
 	#obtener las evaluaciones de la funcion objetivo con cada cromosoma y la sumatoria
 	evaluaciones = []
-	for i in range(10):
+	for i in range( len(cromosomas) ):
 		evaluacion = f_obj( int( cromosomas[i], 2) )
 		evaluaciones.append( evaluacion )
 
@@ -42,15 +42,14 @@ for r in range(numero_de_pruebas):
 
 	#obtener los fitness de cada cromosoma
 	losFitness = []
-	for i in range(len(cromosomas)):
+	for i in range( len(cromosomas) ):
 		losFitness.append( (evaluaciones[i]) / totalEvaluaciones )
 	#print losFitness
 
 	#---Elitismo---#
 	if(con_elitismo):
 		poblacionNueva[:] = cromosomas[8:]
-		del cromosomas[8:]
-	#se borran los elegidos de la poblacion inicial
+		# del cromosomas[8:]
 
 
 
@@ -58,8 +57,8 @@ for r in range(numero_de_pruebas):
 
 	#asignamos arcos de la ruleta a los cromosomas en base a los pesos de cada uno
 	arcosRuleta = []
-	for i in range(len(cromosomas)):
-		arcosRuleta.append(int(round(losFitness[i] * 100)))
+	for i in range( len(cromosomas) ):
+		arcosRuleta.append( int( round(losFitness[i] * 100) ) )
 
 	ruleta = []
 	for i in range(len(arcosRuleta)):
@@ -70,13 +69,17 @@ for r in range(numero_de_pruebas):
 
 	#giramos la ruleta y obtenemos los pares de cromosomas
 	pares = []
-	for i in range(len(cromosomas)):
+	if(con_elitismo):
+		numero_pares = 4
+	else:
+		numero_pares = 5
+	for i in range(numero_pares * 2):
 		pares.append(ruleta[int(random.randint(0,len(ruleta) - 1))])
 	#print pares
 
 	#--crossover--#
 	j = 0
-	for i in range(len(cromosomas) / 2):
+	for i in range(numero_pares):
 		#se calcula la probabilidad de crossover
 		if(random.random() <= 0.75):
 			lugarDeCorte = random.randint(0,28)
