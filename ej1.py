@@ -5,11 +5,12 @@ import random
 #constantes
 numero_de_pruebas = 20
 con_elitismo = False
-con_reemplazo = not con_elitismo and True
+con_reemplazo = not con_elitismo and False
 
 #funcion objetivo
 def f_obj(num):
-	return num/(math.pow(2,30) - 1)
+	coef = math.pow(2, 30) - 1
+	return math.pow(num/coef, 2)
 
 #Primera poblacion
 cromosomas = []
