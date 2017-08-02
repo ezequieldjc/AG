@@ -56,6 +56,7 @@ print
 print "EXHAUSTIVA: "
 print
 # print "Combinacion Exhaustiva: " + str (combinaciones[pos_mayor])
+print "Los elementos que entran en la mochila son: "
 for i in range (len(combinaciones[pos_mayor])):
     if str(combinaciones[pos_mayor])[i] == '1':
         print "    El elemento " + str(i+1) + " esta dentro."
@@ -103,10 +104,11 @@ print
 print "GREEDY"
 print
 # print "Combinacion de elementos Greedy: " + str(combinacionesGreedy)
+print "Los elementos que entran en la mochila son: "
 for i in range (len(combinacionesGreedy)):
     if combinacionesGreedy[i] == 1:
         print "    El elemento " + str(i+1) + " esta dentro."
         print "       Volumen:" + str(objetos[i]["volumen"]) + ".  Valor: " +  str(objetos[i]["valor"])
 print "Volumen Greedy: " + str(volumenAcumuladoGreedy)
 print "Valor Greedy: " + str(valorAcumuladoGreedy)
-print "--------------------------------"
+print

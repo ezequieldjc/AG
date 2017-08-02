@@ -9,12 +9,12 @@ objetos =  [
 def int2bin(int, cant_digitos):
     return ('{0:0' + str(cant_digitos) +'b}').format(int)
 
-def volumen_total(combinacion):
-    volumenCombinacion = 0
+def peso_total(combinacion):
+    pesoCombinacion = 0
     for i in range(len(combinacion)):
         if(combinacion[i] == '1'):
-            volumenCombinacion += int(objetos[i]["peso"])
-    return volumenCombinacion
+            pesoCombinacion += int(objetos[i]["peso"])
+    return pesoCombinacion
 
 def valor_total(combinacion):
     valorCombinacion = 0
@@ -42,19 +42,21 @@ for i in range(int(math.pow(2, numElementos))):
 pos_mayor = 0
 valor_mayor = 0
 for i in range(len(combinaciones)):
-    if(volumen_total(combinaciones[i]) <= pesoMochila):
+    if(peso_total(combinaciones[i]) <= pesoMochila):
         if(valor_total(combinaciones[i]) > valor_mayor):
             pos_mayor = i
             valor_mayor = valor_total(combinaciones[i])
 
-
+print
 print "EXHAUSTIVA: "
-print "Combinacion Exhaustiva: " + str (combinaciones[pos_mayor])
+print
+# print "Combinacion Exhaustiva: " + str (combinaciones[pos_mayor])
+print "Los elementos que entran en la mochila son: "
 for i in range (len(combinaciones[pos_mayor])):
     if str(combinaciones[pos_mayor])[i] == '1':
         print "    El elemento " + str(i+1) + " esta dentro."
         print "       Peso:" + str(objetos[i]["peso"]) + ".  Valor: " +  str(objetos[i]["valor"])
-print "Volumen Exhaustivo: " + str(volumen_total(combinaciones[pos_mayor]))
+print "Peso Exhaustivo: " + str(peso_total(combinaciones[pos_mayor]))
 print "Valor Exhaustivo: " + str(valor_mayor)
 
 print "--------------------------------"
@@ -93,13 +95,15 @@ for i in fitnessOnly:
         combinacionesGreedy = combinacionesGreedy[:i] + [1] + combinacionesGreedy[i+1:]
         valorAcumuladoGreedy += objetos[i]["valor"]
 
+print
 print "GREEDY"
+print
 # print "Combinacion de elementos Greedy: " + str(combinacionesGreedy)
 print "Los elementos que entran en la mochila son: "
 for i in range (len(combinacionesGreedy)):
     if combinacionesGreedy[i] == 1:
         print "    El elemento " + str(i+1) + " esta dentro."
         print "       Peso:" + str(objetos[i]["peso"]) + ".  Valor: " +  str(objetos[i]["valor"])
-print "Volumen Greedy: " + str(pesoAcumuladoGreedy)
+print "Peso Greedy: " + str(pesoAcumuladoGreedy)
 print "Valor Greedy: " + str(valorAcumuladoGreedy)
-print "--------------------------------"
+print
