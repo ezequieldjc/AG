@@ -25,7 +25,7 @@ def valor_total(combinacion):
     return valorCombinacion
 
 def funFitness (pes,val):
-    return (float(pes)/float(val))
+    return (float(val)/float(pes))
 
 pesoMochila = 3000;
 
@@ -115,4 +115,4 @@ print "Peso Greedy: " + str(pesoAcumuladoGreedy)
 print "Valor Greedy: " + str(valorAcumuladoGreedy)
 print
 
-print "tiempo de proceso de greedy: " + str(time() - time_greedy)
+print "tiempo de proceso de greedy: " +  str(time() - time_greedy)

@@ -1,6 +1,7 @@
 import math
 from time import time
 
+#agregamos mas objetos para realizar pruebas con cantidades distintas.
 objetos = [
     {"volumen": 150, "valor": 20},
     {"volumen": 325, "valor": 40},
@@ -11,11 +12,18 @@ objetos = [
     {"volumen": 770, "valor": 54},
     {"volumen": 60, "valor": 18},
     {"volumen": 930, "valor": 46},
-    {"volumen": 353, "valor": 28}
+    {"volumen": 353, "valor": 28},
+    {"volumen": 432, "valor": 33},
+    {"volumen": 567, "valor": 22},
+    {"volumen": 486, "valor": 74},
+    {"volumen": 133, "valor": 58},
+    {"volumen": 36, "valor": 33},
+    {"volumen": 540, "valor": 65},
+    {"volumen": 638, "valor": 31}
 ]
 mochila_volumen = 4200
 
-num_elementos = len(objetos)
+num_elementos = 10
 
 # devuelve la expresion binaria del entero ingresado, con la cantidad de digitos ingresado
 def int2bin(int, cant_digitos):
@@ -39,7 +47,7 @@ def valor_total(combinacion):
 
 #funcion fitness utilizada para la busqueda heuristica
 def funFitness (vol,val):
-    return (float(vol)/float(val))
+    return (float(val)/float(vol))
 
 
 time_ex = time()
