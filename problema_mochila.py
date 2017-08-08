@@ -1,5 +1,7 @@
 import math
+from time import time
 
+start_time = time()
 objetos = [
     {"volumen": 150, "valor": 20},
     {"volumen": 325, "valor": 40},
@@ -40,8 +42,6 @@ for i in range(int(math.pow(2, num_elementos))):
     combinacion = int2bin(i, num_elementos)
     combinaciones.append(combinacion)
 
-print combinaciones
-
 pos_mayor = 0
 valor_mayor = 0
 for i in range(len(combinaciones)):
@@ -54,3 +54,5 @@ for i in range(len(combinaciones)):
 print combinaciones[pos_mayor]
 print volumen_total(combinaciones[pos_mayor])
 print valor_mayor
+
+print "tiempo: " + str(time() - start_time)

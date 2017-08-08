@@ -1,4 +1,5 @@
 import math
+from time import time
 
 objetos =  [
     {"peso": 1800, "valor": 72},
@@ -31,6 +32,7 @@ pesoMochila = 3000;
 numElementos = len(objetos)
 
 
+time_ex = time()
 
 combinaciones = []
 
@@ -61,7 +63,12 @@ print "Valor Exhaustivo: " + str(valor_mayor)
 
 print "--------------------------------"
 
+
+print "tiempo de proceso de algoritmo exhaustivo: " + str(time() - time_ex)
 # greedy
+
+
+time_greedy = time()
 
 fitness = []
 
@@ -107,3 +114,5 @@ for i in range (len(combinacionesGreedy)):
 print "Peso Greedy: " + str(pesoAcumuladoGreedy)
 print "Valor Greedy: " + str(valorAcumuladoGreedy)
 print
+
+print "tiempo de proceso de greedy: " + str(time() - time_greedy)

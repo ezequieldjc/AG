@@ -1,6 +1,5 @@
 import math
-
-#Chemche was here
+from time import time
 
 objetos = [
     {"volumen": 150, "valor": 20},
@@ -43,6 +42,8 @@ def funFitness (vol,val):
     return (float(vol)/float(val))
 
 
+time_ex = time()
+
 #genera todas las combinaciones posibles de objetos, y las guarda en el array combinaciones
 combinaciones = []
 
@@ -75,9 +76,13 @@ print "Volumen Exhaustivo: " + str(volumen_total(combinaciones[pos_mayor]))
 print "Valor Exhaustivo: " + str(valor_mayor)
 print "--------------------------------"
 
+
+print "tiempo de proceso de algoritmo exhaustivo: " + str(time() - time_ex)
 #
 # algoritmo greedy
 # evaluo una funcion fitness para cada elemento y voy poniendo los elementos que tengan mayor fitness
+
+time_greedy = time()
 
 fitness = []
 
@@ -105,7 +110,7 @@ valorAcumuladoGreedy = 0
 for i in fitnessOnly:
     if volumenAcumuladoGreedy + objetos[i]["volumen"] <= mochila_volumen:
         volumenAcumuladoGreedy += objetos[i] ["volumen"]
-        #agrega un 1 donde habia un 0, en la posicion del objeto agreado
+        #agrega un 1 donde habia un 0, en la posicion del objeto agregado
         combinacionesGreedy = combinacionesGreedy[:i] + [1] + combinacionesGreedy[i+1:]
         valorAcumuladoGreedy += objetos[i]["valor"]
 print
@@ -120,3 +125,5 @@ for i in range (len(combinacionesGreedy)):
 print "Volumen Greedy: " + str(volumenAcumuladoGreedy)
 print "Valor Greedy: " + str(valorAcumuladoGreedy)
 print
+
+print "tiempo de proceso de greedy: " + str(time() - time_greedy)
