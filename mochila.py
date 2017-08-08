@@ -18,9 +18,11 @@ mochila_volumen = 4200
 
 num_elementos = len(objetos)
 
+# devuelve la expresion binaria del entero ingresado, con la cantidad de digitos ingresado
 def int2bin(int, cant_digitos):
     return ('{0:0' + str(cant_digitos) +'b}').format(int)
 
+#devuelve el volumen total de una combinacion de objetos ingresado como expresion binaria
 def volumen_total(combinacion):
     volumenCombinacion = 0
     for i in range(len(combinacion)):
@@ -28,6 +30,7 @@ def volumen_total(combinacion):
             volumenCombinacion += int(objetos[i]["volumen"])
     return volumenCombinacion
 
+#devuelve el valor total de una combinacion de objetos ingresado como expresion binaria
 def valor_total(combinacion):
     valorCombinacion = 0
     for i in range(len(combinacion)):
@@ -35,10 +38,12 @@ def valor_total(combinacion):
             valorCombinacion += int(objetos[i]["valor"])
     return valorCombinacion
 
+#funcion fitness utilizada para la busqueda heuristica
 def funFitness (vol,val):
     return (float(vol)/float(val))
 
 
+#genera todas las combinaciones posibles de objetos, y las guarda en el array combinaciones
 combinaciones = []
 
 for i in range(int(math.pow(2, num_elementos))):
@@ -47,6 +52,7 @@ for i in range(int(math.pow(2, num_elementos))):
 
 # print combinaciones
 
+#se recorren todas las combinaciones y se determina exhaustivamente cual es la mejor combinacion
 pos_mayor = 0
 valor_mayor = 0
 for i in range(len(combinaciones)):
@@ -58,6 +64,8 @@ print
 print "EXHAUSTIVA: "
 print
 # print "Combinacion Exhaustiva: " + str (combinaciones[pos_mayor])
+
+# se muestran cuales son los objetos elegidos por el algoritmo, el volumen total ocupado y el valor total alcanzado.
 print "Los elementos que entran en la mochila son: "
 for i in range (len(combinaciones[pos_mayor])):
     if str(combinaciones[pos_mayor])[i] == '1':
@@ -67,7 +75,6 @@ print "Volumen Exhaustivo: " + str(volumen_total(combinaciones[pos_mayor]))
 print "Valor Exhaustivo: " + str(valor_mayor)
 print "--------------------------------"
 
-# arranca el chemche
 #
 # algoritmo greedy
 # evaluo una funcion fitness para cada elemento y voy poniendo los elementos que tengan mayor fitness
@@ -89,17 +96,16 @@ for i in range (num_elementos):
 # print fitnessOnly
 
 combinacionesGreedy = []
-# mejorar|
 for i in (fitnessOnly):
     combinacionesGreedy.append(0)
 
 volumenAcumuladoGreedy = 0
 valorAcumuladoGreedy = 0
-i=0
 
 for i in fitnessOnly:
     if volumenAcumuladoGreedy + objetos[i]["volumen"] <= mochila_volumen:
         volumenAcumuladoGreedy += objetos[i] ["volumen"]
+        #agrega un 1 donde habia un 0, en la posicion del objeto agreado
         combinacionesGreedy = combinacionesGreedy[:i] + [1] + combinacionesGreedy[i+1:]
         valorAcumuladoGreedy += objetos[i]["valor"]
 print
