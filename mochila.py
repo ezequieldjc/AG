@@ -1,7 +1,7 @@
 import math
 from time import time
 
-#agregamos mas objetos para realizar pruebas con cantidades distintas.
+#agregamos mas objetos para realizar pruebas con cantidades distlongas.
 objetos = [
     {"volumen": 150, "valor": 20},
     {"volumen": 325, "valor": 40},
@@ -12,22 +12,24 @@ objetos = [
     {"volumen": 770, "valor": 54},
     {"volumen": 60, "valor": 18},
     {"volumen": 930, "valor": 46},
-    {"volumen": 353, "valor": 28}
+    {"volumen": 353, "valor": 28},
+
 ]
 mochila_volumen = 4200
 
 num_elementos = len(objetos)
 
+
 # devuelve la expresion binaria del entero ingresado, con la cantidad de digitos ingresado
-def int2bin(int, cant_digitos):
-    return ('{0:0' + str(cant_digitos) +'b}').format(int)
+def long2bin(long, cant_digitos):
+    return ('{0:0' + str(cant_digitos) +'b}').format(long)
 
 #devuelve el volumen total de una combinacion de objetos ingresado como expresion binaria
 def volumen_total(combinacion):
     volumenCombinacion = 0
     for i in range(len(combinacion)):
         if(combinacion[i] == '1'):
-            volumenCombinacion += int(objetos[i]["volumen"])
+            volumenCombinacion += long(objetos[i]["volumen"])
     return volumenCombinacion
 
 #devuelve el valor total de una combinacion de objetos ingresado como expresion binaria
@@ -35,7 +37,7 @@ def valor_total(combinacion):
     valorCombinacion = 0
     for i in range(len(combinacion)):
         if (combinacion[i] == '1'):
-            valorCombinacion += int(objetos[i]["valor"])
+            valorCombinacion += long(objetos[i]["valor"])
     return valorCombinacion
 
 #funcion greedy utilizada para la busqueda heuristica
@@ -48,8 +50,8 @@ time_ex = time()
 #genera todas las combinaciones posibles de objetos, y las guarda en el array combinaciones
 combinaciones = []
 
-for i in range(int(math.pow(2, num_elementos))):
-    combinacion = int2bin(i, num_elementos)
+for i in range(long(math.pow(2, num_elementos))):
+    combinacion = long2bin(i, num_elementos)
     combinaciones.append(combinacion)
 
 # print combinaciones
