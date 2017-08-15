@@ -24,7 +24,7 @@ def valor_total(combinacion):
             valorCombinacion += int(objetos[i]["valor"])
     return valorCombinacion
 
-def funFitness (pes,val):
+def funGreedy (pes,val):
     return (float(val)/float(pes))
 
 pesoMochila = 3000;
@@ -70,33 +70,33 @@ print "tiempo de proceso de algoritmo exhaustivo: " + str(time() - time_ex)
 
 time_greedy = time()
 
-fitness = []
+greedy = []
 
 for i in range (numElementos):
-    fitness.append(  {"fit":funFitness(objetos [i]["peso"], objetos [i]["valor"]) ,  "pos": i} )
+    greedy.append(  {"fit":funGreedy(objetos [i]["peso"], objetos [i]["valor"]) ,  "pos": i} )
 
 # Ordeno los elementos en forma decreciente
-fitness.sort(reverse=True)
+greedy.sort(reverse=True)
 
 
-# Para simplificar creo un nuevo arreglo, que contenga solamente las posiciones de los mejores fitness, de mayor a menor
-fitnessOnly = []
+# Para simplificar creo un nuevo arreglo, que contenga solamente las posiciones de los mejores greedy, de mayor a menor
+greedyOnly = []
 for i in range (numElementos):
-    fitnessOnly.append(fitness[i]["pos"])
+    greedyOnly.append(greedy[i]["pos"])
 
-# print fitnessOnly
+# print greedyOnly
 
 
 combinacionesGreedy = []
 # mejorar|
-for i in (fitnessOnly):
+for i in (greedyOnly):
     combinacionesGreedy.append(0)
 
 pesoAcumuladoGreedy = 0
 valorAcumuladoGreedy = 0
 i=0
 
-for i in fitnessOnly:
+for i in greedyOnly:
     if pesoAcumuladoGreedy + objetos[i]["peso"] <= pesoMochila:
         pesoAcumuladoGreedy += objetos[i] ["peso"]
         combinacionesGreedy = combinacionesGreedy[:i] + [1] + combinacionesGreedy[i+1:]

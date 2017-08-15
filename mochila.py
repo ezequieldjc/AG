@@ -12,18 +12,11 @@ objetos = [
     {"volumen": 770, "valor": 54},
     {"volumen": 60, "valor": 18},
     {"volumen": 930, "valor": 46},
-    {"volumen": 353, "valor": 28},
-    {"volumen": 432, "valor": 33},
-    {"volumen": 567, "valor": 22},
-    {"volumen": 486, "valor": 74},
-    {"volumen": 133, "valor": 58},
-    {"volumen": 36, "valor": 33},
-    {"volumen": 540, "valor": 65},
-    {"volumen": 638, "valor": 31}
+    {"volumen": 353, "valor": 28}
 ]
 mochila_volumen = 4200
 
-num_elementos = 10
+num_elementos = len(objetos)
 
 # devuelve la expresion binaria del entero ingresado, con la cantidad de digitos ingresado
 def int2bin(int, cant_digitos):
@@ -45,8 +38,8 @@ def valor_total(combinacion):
             valorCombinacion += int(objetos[i]["valor"])
     return valorCombinacion
 
-#funcion fitness utilizada para la busqueda heuristica
-def funFitness (vol,val):
+#funcion greedy utilizada para la busqueda heuristica
+def funGreedy (vol,val):
     return (float(val)/float(vol))
 
 
@@ -88,34 +81,34 @@ print "--------------------------------"
 print "tiempo de proceso de algoritmo exhaustivo: " + str(time() - time_ex)
 #
 # algoritmo greedy
-# evaluo una funcion fitness para cada elemento y voy poniendo los elementos que tengan mayor fitness
+# evaluo una funcion greedy para cada elemento y voy poniendo los elementos que tengan mayor greedy
 
 time_greedy = time()
 
-fitness = []
+greedy = []
 
 for i in range (num_elementos):
-    fitness.append(  {"fit":funFitness(objetos [i]["volumen"], objetos [i]["valor"]) ,  "pos": i} )
+    greedy.append(  {"fit":funGreedy(objetos [i]["volumen"], objetos [i]["valor"]) ,  "pos": i} )
 
 # Ordeno los elementos en forma decreciente
-fitness.sort(reverse=True)
+greedy.sort(reverse=True)
 
 
-# Para simplificar creo un nuevo arreglo, que contenga solamente las posiciones de los mejores fitness, de mayor a menor
-fitnessOnly = []
+# Para simplificar creo un nuevo arreglo, que contenga solamente las posiciones de los mejores greedy, de mayor a menor
+greedyOnly = []
 for i in range (num_elementos):
-    fitnessOnly.append(fitness[i]["pos"])
+    greedyOnly.append(greedy[i]["pos"])
 
-# print fitnessOnly
+# print greedyOnly
 
 combinacionesGreedy = []
-for i in (fitnessOnly):
+for i in (greedyOnly):
     combinacionesGreedy.append(0)
 
 volumenAcumuladoGreedy = 0
 valorAcumuladoGreedy = 0
 
-for i in fitnessOnly:
+for i in greedyOnly:
     if volumenAcumuladoGreedy + objetos[i]["volumen"] <= mochila_volumen:
         volumenAcumuladoGreedy += objetos[i] ["volumen"]
         #agrega un 1 donde habia un 0, en la posicion del objeto agregado
