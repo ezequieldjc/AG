@@ -1,4 +1,7 @@
-distancias = [
+#1) no se puede jejox xD pq tarda mucho tiempo jeje
+
+
+distancias = {
     "2": {
         "1": 1543,
     },
@@ -107,7 +110,7 @@ distancias = [
         "3": 1145,
         "4": 838,
         "5": 810,
-        "6": 1543
+        "6": 1543,
         "7": 1420,
         "8": 830,
         "9": 1398,
@@ -296,4 +299,4 @@ distancias = [
         "21": 1773,
         "22": 593
     }
-]
+}
