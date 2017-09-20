@@ -58,6 +58,10 @@ for i in range(22):
             j = j + 1
     recorrido.append(proximaCiudad)
 
+if(int(numero_capital_partida) < int(numero_capital_actual)):
+    recorrido.append( (numero_capital_partida, distancias[numero_capital_actual][numero_capital_partida]) )
+else:
+    recorrido.append( (numero_capital_partida, distancias[numero_capital_partida][numero_capital_actual]) )
 
 print visitadas
 print recorrido
